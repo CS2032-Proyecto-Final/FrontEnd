@@ -24,7 +24,6 @@ export const AuthRegister = async (registerForm: RegisterForm) => {
 
 // POST /auth/login
 export const AuthLogin = async (loginForm: LoginForm) => {
-  return {"id": 1};
   try {
     const response = await axios.post(`${URL_MC}/auth/login`, loginForm);
     return response.data; // Devuelve { id }
@@ -38,7 +37,6 @@ export const AuthLogin = async (loginForm: LoginForm) => {
 
 // GET /cuenta/{id}/saldo
 export const GetSaldo = async (id: string | null) => {
-  if(!id) return {"saldo": 0};
   try {
     const response = await axios.get(`${URL_MC}/cuenta/${id}/saldo`);
     return response.data.saldo; // Devuelve { saldo }
@@ -51,9 +49,8 @@ export const GetSaldo = async (id: string | null) => {
 
 // POST /movimiento/transferencia/{remitente_id}
 export const Transferencia = async (remitente_id: string, transferForm: TransferForm) => {
-  
-  return { status: 200 };
-  
+  console.log(remitente_id);
+  console.log(transferForm);
   try {
     const response = await axios.post(`${URL_MO}/movimiento/transferencia/${remitente_id}`, transferForm);
     return response.data; // Status 200
@@ -104,10 +101,10 @@ export const GetRemitentes = async (id: string) => {
 
 // GET /promociones/
 export const GetPromociones = async () => {
-  return [
+  /*return [
     { id: "1", nombre_tienda: "Tienda A", nombre_producto: "Producto 1", descuento: 10, precio: 100 },
     { id: "2", nombre_tienda: "Tienda B", nombre_producto: "Producto 2", descuento: 20, precio: 200 },
-  ];
+  ];*/
   
   try {
     const response = await axios.get(`${URL_MP}/promociones`);

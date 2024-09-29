@@ -17,14 +17,21 @@ const Transferencias = () => {
   const [transferencias, setTransferencias] = useState<Transferencia[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const userId = '1'; // Se debe obtener del contexto o localStorage
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTransferencias = async () => {
       try {
-        const destinatariosResponse = await GetDestinatarios(userId);
-        const remitentesResponse = await GetRemitentes(userId);
+        const storedId = localStorage.getItem('id'); // Recuperar el ID del localStorage
+        let destinatariosResponse = [];
+        let remitentesResponse = [];
+        if (storedId) {
+          setUserId(storedId);
+          destinatariosResponse = await GetDestinatarios(storedId);
+          remitentesResponse = await GetRemitentes(storedId);
 
+        }
+        
         // Unimos destinatarios y remitentes en un solo array y los ordenamos por fecha
         const allTransferencias: Transferencia[] = [
           ...destinatariosResponse.map((d:any) => ({

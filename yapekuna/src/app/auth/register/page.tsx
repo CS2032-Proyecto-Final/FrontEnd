@@ -39,7 +39,7 @@ export default function Register(){
       }
     },
     onSuccess: (data) => {
-      console.log(data.id);
+      console.log(data);
       setErrorMessage(null);
     }
   })

@@ -20,7 +20,7 @@ export default function RootLayout({
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('id');
     setIsAuthenticated(!!userId); // Verifica si hay un userId en el localStorage
   }, []);
 
@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReactQueryProvider>
-          {isAuthenticated && <Typography>Autenticado</Typography>} {/* Mostrar NavBar solo si el usuario está autenticado */}
+          {isAuthenticated && <NavBar/>} {/* Mostrar NavBar solo si el usuario está autenticado */}
           <main>
             {children}
           </main>

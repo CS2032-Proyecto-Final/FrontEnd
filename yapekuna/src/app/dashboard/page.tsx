@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [transferForm, setTransferForm] = useState<TransferForm>({
-    destinatario_numero: '',
+    destinatario_telefono: '',
     monto: 0,
     descripcion: '',
   });
@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchSaldo = async () => {
       try {
-        const storedId = localStorage.getItem('userId'); // Recuperar el ID del localStorage
+        const storedId = localStorage.getItem('id'); // Recuperar el ID del localStorage
         if (storedId) {
           setUserId(storedId);
           const fetchedSaldo = await GetSaldo(storedId);
@@ -49,7 +49,7 @@ const Dashboard = () => {
   const handleCloseDialog = () => {
     setDialogOpen(false);
     setTransferForm({
-      destinatario_numero: '',
+      destinatario_telefono: '',
       monto: 0,
       descripcion: ''
     });
@@ -100,7 +100,7 @@ const Dashboard = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
-        Cuenta bancaria: {saldo} S/.
+        Tu cuenta bancaria: S/. {saldo} 
       </Typography>
 
       <Box sx={{ mt: 4 }}>
@@ -152,7 +152,7 @@ const Dashboard = () => {
             label="Cuenta destinataria"
             name="destinatario_numero"
             fullWidth
-            value={transferForm.destinatario_numero}
+            value={transferForm.destinatario_telefono}
             onChange={handleTransferChange}
             margin="normal"
           />

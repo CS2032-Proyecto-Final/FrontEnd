@@ -10,8 +10,8 @@ const NavBar = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.removeItem('userId'); // Elimina el ID del usuario del localStorage
-    router.push('/login'); // Redirige al login después de hacer logout
+    localStorage.removeItem('id'); // Elimina el ID del usuario del localStorage
+    router.push('/auth/login'); // Redirige al login después de hacer logout
   };
 
   return (

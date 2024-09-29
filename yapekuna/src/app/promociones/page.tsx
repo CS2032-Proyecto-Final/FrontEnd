@@ -11,9 +11,8 @@ const Promociones = () => {
   const [error, setError] = useState<string | null>(null);
   const [isPaying, setIsPaying] = useState<boolean>(false); // Para mostrar carga durante el pago
   const [success, setSuccess] = useState<boolean>(false); // Indica si el pago fue exitoso
-
-  const userId = '1'; // Se debe obtener el ID de la persona desde el contexto o localStorage
-
+  const [userId, setUserId] = useState<string | null>(null);
+  
   useEffect(() => {
     const fetchPromociones = async () => {
       try {
@@ -41,8 +40,12 @@ const Promociones = () => {
   const handlePagarPromocion = async (promocionId: string) => {
     setIsPaying(true);
     try {
-      const pagoResponse = await PagarPromocion(promocionId, userId);
-      setSuccess(true); // Muestra la pantalla de éxito si el pago fue exitoso
+      const storedId:string | null = localStorage.getItem('id'); // Recuperar el ID del localStorage
+      if (storedId) {
+        setUserId(storedId);
+        const pagoResponse = await PagarPromocion(promocionId, storedId);
+        setSuccess(true); // Muestra la pantalla de éxito si el pago fue exitoso
+      }    
     } catch (err: any) {
       setError(err.message); // Muestra los errores en caso de que algo falle
     } finally {

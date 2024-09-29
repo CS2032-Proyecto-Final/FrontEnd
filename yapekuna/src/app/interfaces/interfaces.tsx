@@ -8,7 +8,7 @@ export interface LoginForm{
 }
 
 export interface TransferForm{
-    destinatario_numero: string,
+    destinatario_telefono: string,
     monto: number, 
     descripcion: string,
 }
