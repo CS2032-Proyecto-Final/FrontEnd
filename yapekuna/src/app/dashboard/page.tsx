@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [transferForm, setTransferForm] = useState<TransferForm>({
-    destinatario_telefono: '',
+    destinatario_numero: '',
     monto: 0,
     descripcion: '',
   });
@@ -49,7 +49,7 @@ const Dashboard = () => {
   const handleCloseDialog = () => {
     setDialogOpen(false);
     setTransferForm({
-      destinatario_telefono: '',
+      destinatario_numero: '',
       monto: 0,
       descripcion: ''
     });
@@ -152,7 +152,7 @@ const Dashboard = () => {
             label="Cuenta destinataria"
             name="destinatario_numero"
             fullWidth
-            value={transferForm.destinatario_telefono}
+            value={transferForm.destinatario_numero}
             onChange={handleTransferChange}
             margin="normal"
           />

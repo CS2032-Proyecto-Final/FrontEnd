@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Typography, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material';
 import { GetPromociones, GetPromocion, PagarPromocion } from '../service/api'; // Funciones de la API
+import { Promocion } from '../interfaces/interfaces';
 
 const Promociones = () => {
   const [promociones, setPromociones] = useState<any[]>([]);
-  const [selectedPromocion, setSelectedPromocion] = useState<any | null>(null); // Promoción seleccionada
+  const [selectedPromocion, setSelectedPromocion] = useState<Promocion | null>(null); // Promoción seleccionada
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isPaying, setIsPaying] = useState<boolean>(false); // Para mostrar carga durante el pago
@@ -31,19 +32,20 @@ const Promociones = () => {
   const handleSelectPromocion = async (promocionId: string) => {
     try {
       const promocionData = await GetPromocion(promocionId);
-      setSelectedPromocion(promocionData); // Mostrar los detalles de la promoción en el pop-up
+      setSelectedPromocion({id: promocionId, ...promocionData}); // Mostrar los detalles de la promoción en el pop-up
     } catch (err) {
       setError('Error al obtener los detalles de la promoción');
     }
   };
 
-  const handlePagarPromocion = async (promocionId: string) => {
+  const handlePagarPromocion = async (promocionId: string | undefined) => {
     setIsPaying(true);
     try {
       const storedId:string | null = localStorage.getItem('id'); // Recuperar el ID del localStorage
-      if (storedId) {
+      if (storedId && promocionId) {
         setUserId(storedId);
         const pagoResponse = await PagarPromocion(promocionId, storedId);
+        console.log(pagoResponse);
         setSuccess(true); // Muestra la pantalla de éxito si el pago fue exitoso
       }    
     } catch (err: any) {
@@ -133,7 +135,7 @@ const Promociones = () => {
                 Descripción: {selectedPromocion.descripcion}
               </Typography>
               <Typography variant="body2">
-                Vigencia: {selectedPromocion.dia_inicial} - {selectedPromocion.dia_final}
+                Vigencia: {selectedPromocion.dia_inicio} - {selectedPromocion.dia_final}
               </Typography>
               {error && (
                 <Typography variant="body2" color="error">
@@ -153,7 +155,7 @@ const Promociones = () => {
             Cerrar
           </Button>
           <Button
-            onClick={() => handlePagarPromocion(selectedPromocion.id)}
+            onClick={() => handlePagarPromocion(selectedPromocion?.id)}
             color="primary"
             disabled={isPaying}
           >

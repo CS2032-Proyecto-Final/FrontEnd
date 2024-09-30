@@ -69,10 +69,10 @@ export const Transferencia = async (remitente_id: string, transferForm: Transfer
 
 // GET /transferencias/cliente/{id}/destinatarios
 export const GetDestinatarios = async (id: string) => {
-  return [
+  /*return [
     { nombre_destinatario: "Juan Perez", monto: 500, fecha: "2024-09-27", descripcion: "Transferencia" },
     { nombre_destinatario: "Maria Lopez", monto: 300, fecha: "2024-09-28", descripcion: "Pago de servicios" },
-  ];
+  ];*/
 
   try {
     const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/destinatarios`);
@@ -84,10 +84,10 @@ export const GetDestinatarios = async (id: string) => {
 
 // GET /transferencias/cliente/{id}/remitentes
 export const GetRemitentes = async (id: string) => {
-  return [
+  /*return [
     { nombre_remitente: "Michael Hinojosa", monto: 400, fecha: "2024-09-26", descripcion: "Te debo" },
     { nombre_remitente: "Mikel Bracamonte", monto: 200, fecha: "2024-09-28", descripcion: "Pagado" },
-  ];
+  ];*/
 
   try {
     const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/destinatarios`);
@@ -116,7 +116,7 @@ export const GetPromociones = async () => {
 
 // GET /promocion/{id}
 export const GetPromocion = async (id: string) => {
-  return { nombre_tienda: "Tienda A", nombre_producto: "Producto 1", descuento: 10, precio: 100, descripcion: "Descripción del producto", dia_inicial: "2024-09-01", dia_final: "2024-09-30" };
+  //return { nombre_tienda: "Tienda A", nombre_producto: "Producto 1", descuento: 10, precio: 100, descripcion: "Descripción del producto", dia_inicial: "2024-09-01", dia_final: "2024-09-30" };
   
   try {
     const response = await axios.get(`${URL_MP}/promocion/${id}`);
@@ -127,10 +127,12 @@ export const GetPromocion = async (id: string) => {
 };
 
 // POST /movimiento/pago/promocion/{id}
-export const PagarPromocion = async (id: string, persona_id: string) => {
-  return { codigo: "PROMO123" };
+export const PagarPromocion = async (id: string, remitente_id: string) => {
+  //return { codigo: "PROMO123" };
+  console.log(id);
   try {
-    const response = await axios.post(`${URL_MO}/movimiento/pago/promocion/${id}`, { persona_id });
+    const response = await axios.post(`${URL_MO}/movimiento/pago/promocion/${id}`, { remitente_id });
+    console.log(response);
     return response.data.codigo; // Devuelve {codigo}
   } catch (error: any) {
     if (error.response?.status === 401) {
