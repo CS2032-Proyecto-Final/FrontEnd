@@ -14,7 +14,8 @@ const Pagos = () => {
   useEffect(() => {
     const fetchPagos = async () => {
       try {
-        const response = await GetPagos();
+        const storedId = localStorage.getItem('id'); // Recuperar el ID del localStorage
+        const response = await GetPagos(storedId);
         setPagos(response); // Asumimos que la API devuelve un array de pagos
       } catch (err) {
         setError('Error al obtener los pagos');

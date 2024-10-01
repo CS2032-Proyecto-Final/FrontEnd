@@ -90,7 +90,7 @@ export const GetRemitentes = async (id: string) => {
   ];*/
 
   try {
-    const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/destinatarios`);
+    const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/remitentes`);
     return response.data; // Devuelve List<{nombre_remitente, monto, fecha, descripcion}>
   } catch (error) {
     throw error;
@@ -158,14 +158,14 @@ export const PagarPromocion = async (id: string, remitente_id: string) => {
 // ---- MM ----
 
 // GET /movimiento/pagos/
-export const GetPagos = async () => {
-  return [
+export const GetPagos = async (id:string) => {
+  /*return [
     { destinatario_nombre: "Tienda A", monto: 100, producto_nombre: "Producto 1", fecha: "2024-09-27", codigo: "PROMO123" },
     { destinatario_nombre: "Tienda B", monto: 200, producto_nombre: "Producto 2", fecha: "2024-09-28", codigo: "PROMO456" },
-  ];
+  ];*/
   
   try {
-    const response = await axios.get(`${URL_MM}/movimiento/pagos`);
+    const response = await axios.get(`${URL_MM}/pagos/cliente/${id}`);
     return response.data; // Devuelve List<{destinatario_nombre, monto, producto_nombre, fecha, codigo}>
   } catch (error: any) {
     if (error.response?.status === 404) {

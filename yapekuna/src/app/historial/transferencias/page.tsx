@@ -28,8 +28,7 @@ const Transferencias = () => {
         if (storedId) {
           setUserId(storedId);
           destinatariosResponse = await GetDestinatarios(storedId);
-          remitentesResponse = await GetRemitentes(storedId);
-
+          remitentesResponse = await GetRemitentes(storedId);          
         }
         
         // Unimos destinatarios y remitentes en un solo array y los ordenamos por fecha
@@ -59,7 +58,7 @@ const Transferencias = () => {
     };
 
     fetchTransferencias();
-  }, [userId]);
+  }, []);
 
   if (loading) {
     return (
