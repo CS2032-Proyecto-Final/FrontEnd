@@ -174,3 +174,16 @@ export const GetPagos = async (id:string) => {
     throw error;
   }
 };
+
+// GET /persona/{id}/nombre
+export const GetPersonaNombre = async (id: string) => {
+  try{
+    const response = await axios.get(`${URL_MC}/persona/${id}/nombre`);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) {
+      throw new Error("No se encontro el cliente");
+    }
+    throw error;
+  }
+}
