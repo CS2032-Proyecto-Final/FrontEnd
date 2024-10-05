@@ -22,14 +22,14 @@ export default function RootLayout({
   useEffect(() => {
     const userId = localStorage.getItem('id');
     setIsAuthenticated(!!userId); // Verifica si hay un userId en el localStorage
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <html lang="en">
       <body>
         <ReactQueryProvider>
           {isAuthenticated && <NavBar/>} {/* Mostrar NavBar solo si el usuario está autenticado */}
-          <main>
+          <main className="h-screen">
             {children}
           </main>
         </ReactQueryProvider>

@@ -14,7 +14,8 @@ const Pagos = () => {
   useEffect(() => {
     const fetchPagos = async () => {
       try {
-        const response = await GetPagos();
+        const storedId = localStorage.getItem('id'); // Recuperar el ID del localStorage
+        const response = await GetPagos(storedId);
         setPagos(response); // Asumimos que la API devuelve un array de pagos
       } catch (err) {
         setError('Error al obtener los pagos');
@@ -45,36 +46,34 @@ const Pagos = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+    <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+      <Typography variant="h4" className="text-center text-gray-800 font-bold mb-6">
         Historial de Pagos
       </Typography>
-      <Grid container spacing={2}>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {pagos.map((pago, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  {pago.producto_nombre}
-                </Typography>
-                <Typography variant="body1">
-                  Destinatario: {pago.destinatario_nombre}
-                </Typography>
-                <Typography variant="body2">
-                  Monto: S/. {pago.monto}
-                </Typography>
-                <Typography variant="body2">
-                  Fecha: {pago.fecha}
-                </Typography>
-                <Typography variant="body2">
-                  Código: {pago.codigo}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            <Typography variant="h5" className="text-blue-700 font-semibold mb-2">
+              {pago.producto_nombre}
+            </Typography>
+            <Typography variant="body1" className="text-gray-700">
+              Destinatario: {pago.destinatario_nombre}
+            </Typography>
+            <Typography variant="body2" className="text-green-600 font-bold my-2">
+              Monto: S/. {pago.monto}
+            </Typography>
+            <Typography variant="body2" className="text-gray-600">
+              Fecha: {pago.fecha}
+            </Typography>
+            <Typography variant="body2" className="text-gray-600 text-2xl">
+              Código: {pago.codigo}
+            </Typography>
+          </div>
         ))}
-      </Grid>
-    </Box>
+      </div>
+    </div>
+
   );
 };
 

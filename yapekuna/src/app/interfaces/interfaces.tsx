@@ -8,7 +8,7 @@ export interface LoginForm{
 }
 
 export interface TransferForm{
-    destinatario_telefono: string,
+    destinatario_numero: string,
     monto: number, 
     descripcion: string,
 }
@@ -29,3 +29,13 @@ export interface Pago {
     codigo: string;
 }
 
+export interface Promocion {
+    id: string,
+    nombre_tienda: string,
+    nombre_producto: string,
+    descuento: number,
+    precio: number,
+    descripcion: string,
+    dia_inicio: string,
+    dia_final: string,
+}

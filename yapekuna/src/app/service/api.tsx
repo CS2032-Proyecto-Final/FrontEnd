@@ -69,10 +69,10 @@ export const Transferencia = async (remitente_id: string, transferForm: Transfer
 
 // GET /transferencias/cliente/{id}/destinatarios
 export const GetDestinatarios = async (id: string) => {
-  return [
+  /*return [
     { nombre_destinatario: "Juan Perez", monto: 500, fecha: "2024-09-27", descripcion: "Transferencia" },
     { nombre_destinatario: "Maria Lopez", monto: 300, fecha: "2024-09-28", descripcion: "Pago de servicios" },
-  ];
+  ];*/
 
   try {
     const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/destinatarios`);
@@ -84,13 +84,13 @@ export const GetDestinatarios = async (id: string) => {
 
 // GET /transferencias/cliente/{id}/remitentes
 export const GetRemitentes = async (id: string) => {
-  return [
+  /*return [
     { nombre_remitente: "Michael Hinojosa", monto: 400, fecha: "2024-09-26", descripcion: "Te debo" },
     { nombre_remitente: "Mikel Bracamonte", monto: 200, fecha: "2024-09-28", descripcion: "Pagado" },
-  ];
+  ];*/
 
   try {
-    const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/destinatarios`);
+    const response = await axios.get(`${URL_MM}/transferencias/cliente/${id}/remitentes`);
     return response.data; // Devuelve List<{nombre_remitente, monto, fecha, descripcion}>
   } catch (error) {
     throw error;
@@ -116,7 +116,7 @@ export const GetPromociones = async () => {
 
 // GET /promocion/{id}
 export const GetPromocion = async (id: string) => {
-  return { nombre_tienda: "Tienda A", nombre_producto: "Producto 1", descuento: 10, precio: 100, descripcion: "Descripción del producto", dia_inicial: "2024-09-01", dia_final: "2024-09-30" };
+  //return { nombre_tienda: "Tienda A", nombre_producto: "Producto 1", descuento: 10, precio: 100, descripcion: "Descripción del producto", dia_inicial: "2024-09-01", dia_final: "2024-09-30" };
   
   try {
     const response = await axios.get(`${URL_MP}/promocion/${id}`);
@@ -127,10 +127,12 @@ export const GetPromocion = async (id: string) => {
 };
 
 // POST /movimiento/pago/promocion/{id}
-export const PagarPromocion = async (id: string, persona_id: string) => {
-  return { codigo: "PROMO123" };
+export const PagarPromocion = async (id: string, remitente_id: string) => {
+  //return { codigo: "PROMO123" };
+  console.log(id);
   try {
-    const response = await axios.post(`${URL_MO}/movimiento/pago/promocion/${id}`, { persona_id });
+    const response = await axios.post(`${URL_MO}/movimiento/pago/promocion/${id}`, { remitente_id });
+    console.log(response);
     return response.data.codigo; // Devuelve {codigo}
   } catch (error: any) {
     if (error.response?.status === 401) {
@@ -156,14 +158,14 @@ export const PagarPromocion = async (id: string, persona_id: string) => {
 // ---- MM ----
 
 // GET /movimiento/pagos/
-export const GetPagos = async () => {
-  return [
+export const GetPagos = async (id:string) => {
+  /*return [
     { destinatario_nombre: "Tienda A", monto: 100, producto_nombre: "Producto 1", fecha: "2024-09-27", codigo: "PROMO123" },
     { destinatario_nombre: "Tienda B", monto: 200, producto_nombre: "Producto 2", fecha: "2024-09-28", codigo: "PROMO456" },
-  ];
+  ];*/
   
   try {
-    const response = await axios.get(`${URL_MM}/movimiento/pagos`);
+    const response = await axios.get(`${URL_MM}/pagos/cliente/${id}`);
     return response.data; // Devuelve List<{destinatario_nombre, monto, producto_nombre, fecha, codigo}>
   } catch (error: any) {
     if (error.response?.status === 404) {
@@ -172,3 +174,16 @@ export const GetPagos = async () => {
     throw error;
   }
 };
+
+// GET /persona/{id}/nombre
+export const GetPersonaNombre = async (id: string) => {
+  try{
+    const response = await axios.get(`${URL_MC}/persona/${id}/nombre`);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 404) {
+      throw new Error("No se encontro el cliente");
+    }
+    throw error;
+  }
+}
