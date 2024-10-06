@@ -9,6 +9,7 @@ import { TextField } from '@mui/material';
 import { RegisterForm, Id } from '@/app/interfaces/interfaces';
 import { AuthRegister } from '@/app/service/api';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = yup.object({
   nombre: yup
@@ -24,6 +25,8 @@ const validationSchema = yup.object({
   
 export default function Register(){
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean> (false);
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: (values: RegisterForm) => AuthRegister(values),
@@ -39,8 +42,8 @@ export default function Register(){
       }
     },
     onSuccess: (data) => {
-      console.log(data);
       setErrorMessage(null);
+      router.push('/auth/login')
     }
   })
 
@@ -52,7 +55,9 @@ export default function Register(){
     validationSchema: validationSchema,
     onSubmit: (values : RegisterForm) => {
         setErrorMessage(null);
+        setLoading(true);
         mutation.mutate(values);
+
     },
   });
 
@@ -108,6 +113,7 @@ export default function Register(){
         <Button
           color="primary"
           variant="contained"
+          disabled = {loading}
           fullWidth
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-5"
