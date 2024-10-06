@@ -1,11 +1,14 @@
 import axios from "axios";
 import type { RegisterForm, Id, LoginForm, TransferForm, PagoForm } from "../interfaces/interfaces";
 
+// servidor
+const SERVER: string = "http://lb-prod-1098300924.us-east-1.elb.amazonaws.com";
+
 // URLs base para cada microservicio
-const URL_MC: string = "http://localhost:8080";
-const URL_MM: string = "http://localhost:8000";
-const URL_MO: string = "http://localhost:8001";
-const URL_MP: string = "http://localhost:8002";
+const URL_MC: string = SERVER + ":8080";
+const URL_MM: string = SERVER + ":8000";
+const URL_MO: string = SERVER + ":8001";
+const URL_MP: string = SERVER + ":8002";
 
 // ---- MC ----
 
