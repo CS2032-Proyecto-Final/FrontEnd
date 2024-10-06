@@ -121,7 +121,7 @@ export default function Register(){
           Registrarse
         </Button>
           <div className="flex justify-center mt-4">
-            <Link href="/auth/login" className="hover:text-blue-800">
+            <Link className="hover:text-blue-800" onClick={() => router.push('/auth/login')}>
               ¿Ya tienes una cuenta?
             </Link>
           </div>

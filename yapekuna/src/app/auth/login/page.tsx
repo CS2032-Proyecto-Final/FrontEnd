@@ -80,7 +80,7 @@ export default function Login() {
       )}
   
       <div className="flex justify-center mt-4">
-        <Link href="/auth/register" className="hover:text-blue-800">
+        <Link className="hover:text-blue-800" onClick={() => router.push('/auth/register')}>
           ¿Aún no tienes una cuenta?
         </Link>
       </div>
